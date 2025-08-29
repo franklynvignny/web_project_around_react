@@ -31,7 +31,7 @@ export default function NewCard() {
         <span className="popup__error" id="card-link-error"></span>
       </label>
 
-      <button className="button popup__button" type="submit">
+      <button className="button popup__save" type="submit">
         Salvar
       </button>
     </form>

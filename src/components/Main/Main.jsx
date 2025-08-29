@@ -30,12 +30,9 @@ const cardsData = [
 ];
 
 export default function Main() {
-  const [popup, setPopup] = useState(null); 
-  const [cards, setCards] = useState(cardsData); 
-  const [avatar, setAvatar] = useState(Avatar);
-  const [selectedCard, setSelectedCard] = useState(null); 
+  const [popup, setPopup] = useState(null);
+  const [selectedCard, setSelectedCard] = useState(null);
 
-  
   const popups = {
     newCard: { title: "Novo cartão", children: <NewCardForm /> },
     editProfile: { title: "Editar perfil", children: <EditProfileForm /> },
@@ -50,7 +47,7 @@ export default function Main() {
     setPopup(popups[popupKey]);
   }
 
-  // Fecha qualquer popup
+  // Fecha popup
   function handleClosePopup() {
     setPopup(null);
     setSelectedCard(null);
@@ -65,7 +62,7 @@ export default function Main() {
     <main className="content">
       <section className="profile">
         <div className="profile__avatar-container">
-          <img src={avatar} alt="foto de perfil" className="profile__avatar" />
+          <img src={Avatar} alt="foto de perfil" className="profile__avatar" />
           <button
             type="button"
             className="profile__avatar-edit"
@@ -100,7 +97,7 @@ export default function Main() {
       {/* Seção Cards */}
       <section className="elements">
         <ul className="cards__list">
-          {cards.map((card) => (
+          {cardsData.map((card) => (
             <Card
               key={card._id}
               card={card}
@@ -110,7 +107,6 @@ export default function Main() {
         </ul>
       </section>
 
-      
       {popup && (
         <Popup onClose={handleClosePopup} title={popup.title}>
           {popup.children}

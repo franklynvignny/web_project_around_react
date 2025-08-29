@@ -86,6 +86,8 @@
 .popup__close-btn:hover {
   opacity: 0.6;
 }
+
+ 
 .popup_type_image {
   display: none;
   align-items: center;
