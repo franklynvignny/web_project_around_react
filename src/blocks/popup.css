@@ -43,6 +43,7 @@
   background: transparent;
   padding: 5px 0;
   font-size: 14px;
+  width: 370px;
   line-height: 17px;
   color: #000;
   outline: none;
@@ -59,6 +60,7 @@
   border-radius: 6px;
   cursor: pointer;
   transition: opacity 0.2s ease;
+  margin-top: 27px;
 }
 .popup__save:hover {
   opacity: 0.8;
