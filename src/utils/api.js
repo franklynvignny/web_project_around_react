@@ -74,7 +74,6 @@ class Api {
   }
 }
 
-
 // Criar a instância da API
 const api = new Api({
   baseUrl: "https://around-api.pt-br.tripleten-services.com/v1",

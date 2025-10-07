@@ -10,11 +10,16 @@ export default function EditAvatar({ onUpdateAvatar }) {
       avatar: avatarRef.current.value,
     });
 
-    avatarRef.current.value = ""; 
+    avatarRef.current.value = "";
   }
 
   return (
-    <form id="formEditAvatar" className="popup__form" noValidate onSubmit={handleSubmit}>
+    <form
+      id="formEditAvatar"
+      className="popup__form"
+      noValidate
+      onSubmit={handleSubmit}
+    >
       <input
         type="url"
         name="avatar"

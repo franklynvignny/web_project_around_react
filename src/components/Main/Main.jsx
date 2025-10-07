@@ -2,8 +2,13 @@ import { useContext } from "react";
 import Card from "./Components/Card/Card.jsx";
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 
-
-export default function Main({ cards, onOpenPopup, onCardClick, onCardLike, onCardDelete }) {
+export default function Main({
+  cards,
+  onOpenPopup,
+  onCardClick,
+  onCardLike,
+  onCardDelete,
+}) {
   const { currentUser } = useContext(CurrentUserContext);
 
   return (

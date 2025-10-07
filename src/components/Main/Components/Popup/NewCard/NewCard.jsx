@@ -12,7 +12,12 @@ export default function NewCard({ onAddCard }) {
   }
 
   return (
-    <form id="formNewCard" className="popup__form" noValidate onSubmit={handleSubmit}>
+    <form
+      id="formNewCard"
+      className="popup__form"
+      noValidate
+      onSubmit={handleSubmit}
+    >
       <input
         type="text"
         name="name"

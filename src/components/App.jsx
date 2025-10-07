@@ -20,10 +20,11 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [cardToDelete, setCardToDelete] = useState(null);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
-
+  
   // 🔹 Carregar usuário e cards
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
+    
       .then(([user, initialCards]) => {
         setCurrentUser(user);
 
