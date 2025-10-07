@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import Card from "./Components/Card/Card.jsx";
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
+import Popup from "./Components/Popup/Popup.jsx"
 
 export default function Main({
   cards,
@@ -58,6 +59,9 @@ export default function Main({
             />
           ))}
         </ul>
+
+        
+
       </section>
     </main>
   );
