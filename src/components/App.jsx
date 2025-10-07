@@ -20,11 +20,11 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [cardToDelete, setCardToDelete] = useState(null);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
-  
+
   // 🔹 Carregar usuário e cards
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
-    
+
       .then(([user, initialCards]) => {
         setCurrentUser(user);
 
@@ -40,6 +40,13 @@ function App() {
       })
       .catch(console.error);
   }, []);
+
+  // Função para lidar com ESC
+  function handleEscClose(evt) {
+    if (evt.key === "Escape") {
+      handleClosePopup();
+    }
+  }
 
   // 🔹 Funções de popups
   const handleOpenPopup = (popupKey) => setPopup(popupKey);
@@ -139,7 +146,6 @@ function App() {
           onCardClick={handleCardClick}
           onCardLike={handleCardLike}
           onCardDelete={handleAskDeleteCard}
-          
         />
         <Footer />
 
