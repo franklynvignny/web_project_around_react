@@ -11,6 +11,7 @@ export default function Main({
   onCardDelete,
 }) {
   const { currentUser } = useContext(CurrentUserContext);
+  
 
   return (
     <main className="content">
@@ -59,10 +60,8 @@ export default function Main({
             />
           ))}
         </ul>
-
-        
-
       </section>
+       {false && <Popup />}
     </main>
   );
 }
