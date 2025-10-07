@@ -34,7 +34,7 @@ class Api {
   }
 
   getInitialCards() {
-    return fetch("https://around-api.pt-br.tripleten-services.com/v1/cards/", {
+    return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
     }).then(this._handleResponse);
   }
@@ -67,16 +67,21 @@ class Api {
       headers: this._headers,
     }).then(this._handleResponse);
   }
+
+  // 🔹 novo método usado no App.jsx
+  changeLikeCardStatus(cardId, like) {
+    return like ? this.addLike(cardId) : this.removeLike(cardId);
+  }
 }
 
 
+// Criar a instância da API
 const api = new Api({
-  baseUrl: 'https://around-api.pt-br.tripleten-services.com/v1',
+  baseUrl: "https://around-api.pt-br.tripleten-services.com/v1",
   headers: {
-    authorization: 'd4a4435e-0d66-44e3-93bd-dcb7b970105a', 
-    'Content-Type': 'application/json'
-  }
+    authorization: "d4a4435e-0d66-44e3-93bd-dcb7b970105a",
+    "Content-Type": "application/json",
+  },
 });
-
 
 export default api;

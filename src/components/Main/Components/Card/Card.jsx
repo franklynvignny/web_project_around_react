@@ -7,12 +7,12 @@ import likeInactive from "../../../../images/like.png";
 export default function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const { currentUser } = useContext(CurrentUserContext);
 
+  // Card pertence ao usuário atual?
+  const ownerId = card.owner?._id || card.owner;
+  const isOwn = ownerId === currentUser?._id;
 
-  const isLiked = Array.isArray(card.likes)
-    ? card.likes.some((i) => i._id === currentUser?._id)
-    : false;
-
-  const isOwn = card.owner === currentUser?._id;
+  // Card já foi curtido pelo usuário atual?
+  const isLiked = card.isLiked;
 
   return (
     <li className="card">
@@ -36,13 +36,15 @@ export default function Card({ card, onCardClick, onCardLike, onCardDelete }) {
       <div className="card__info">
         <h3 className="card__title">{card.name}</h3>
         <button
-          className="card__like-button"
+          className={`card__like-button ${
+            isLiked ? "card__like-button_is-active" : ""
+          }`}
           onClick={() => onCardLike(card)}
-          aria-label="Curtir card"
+          aria-label={isLiked ? "Descurtir" : "Curtir"}
         >
           <img
             src={isLiked ? likeActive : likeInactive}
-            alt="Curtir"
+            alt={isLiked ? "Descurtir" : "Curtir"}
             className="card__like-icon"
           />
         </button>

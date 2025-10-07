@@ -31,6 +31,7 @@
   border-top-right-radius: 10px;
 }
 
+
 .card__delete-button {
   position: absolute;
   top: 18px;
@@ -40,7 +41,7 @@
   border: none;
   cursor: pointer;
   background: none;
-  z-index: 2;
+  z-index: 10;
   padding: 0;
 }
 
@@ -52,7 +53,7 @@
 
 .card__info {
   display: flex;
-  justify-content: space-between;
+  justify-content:space-around;
   align-items: center;
   height: 79px;
   background-color: #fff;
@@ -81,12 +82,12 @@
   background: transparent;
 }
 
+
 .card__like-button img {
   width: 21px;
   height: 19px;
   object-fit: contain;
 }
-
 
 .card__like-button:hover .card__like-icon {
   opacity: 0.6;

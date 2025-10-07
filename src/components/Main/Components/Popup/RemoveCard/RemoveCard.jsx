@@ -12,9 +12,19 @@ export default function RemoveCard({ card, onCardDelete, onClose }) {
   return (
     <form className="popup__form" onSubmit={handleSubmit}>
       <h3 className="popup__title">Tem certeza?</h3>
-      <button className="button popup__button" type="submit">
-        Sim
-      </button>
+
+      <div className="popup__actions">
+        <button className="button popup__button" type="submit">
+          Sim
+        </button>
+        <button
+          className="button popup__button popup__button_cancel"
+          type="button"
+          onClick={onClose}
+        >
+          Cancelar
+        </button>
+      </div>
     </form>
   );
 }

@@ -2,13 +2,8 @@ import { useContext } from "react";
 import Card from "./Components/Card/Card.jsx";
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 
-export default function Main({
-  cards,
-  onOpenPopup,
-  onCardClick,
-  onCardLike,
-  onCardDelete,
-}) {
+
+export default function Main({ cards, onOpenPopup, onCardClick, onCardLike, onCardDelete }) {
   const { currentUser } = useContext(CurrentUserContext);
 
   return (
@@ -41,7 +36,9 @@ export default function Main({
 
         <button
           className="profile__add-button"
-          onClick={() => onOpenPopup("newCard")}  aria-label="Adicionar novo card"  />
+          onClick={() => onOpenPopup("newCard")}
+          aria-label="Adicionar novo card"
+        />
       </section>
 
       <section className="elements">
