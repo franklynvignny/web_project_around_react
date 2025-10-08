@@ -111,7 +111,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.9); 
+  background-color: rgba(0, 0, 0, 0.9);
   z-index: 1000;
   flex-direction: column;
   padding: 20px;
@@ -158,6 +158,36 @@
   text-shadow: 0 0 6px black;
   font-size: 16px;
   text-align: left;
+}
+
+.popup__inner_type_confirm {
+  width: 300px;
+  height: 150px;
+  align-items: center;
+}
+
+.popup__text {
+  color: #000;
+  font-size: 16px;
+  margin: 0 0 20px 0;
+  text-align: center;
+  font-weight: 500;
+}
+
+.popup_buttons_confirm {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.popup_button_confirm {
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 /* Responsivo */

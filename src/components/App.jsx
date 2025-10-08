@@ -3,28 +3,24 @@ import Header from "./Header/Header.jsx";
 import Main from "./Main/Main.jsx";
 import Footer from "./Footer/Footer.jsx";
 
-import Popup from "./Main/Components/Popup/Popup.jsx";
-import EditProfile from "./Main/Components/Popup/EditProfile/EditProfile.jsx";
-import EditAvatar from "./Main/Components/Popup/NewCard/NewCard.jsx";
-import NewCard from "./Main/Components/Popup/NewCard/NewCard.jsx";
-import RemoveCard from "./Main/Components/Popup/RemoveCard/RemoveCard.jsx";
-import ImagePopup from "./Main/Components/Popup/ImagePopup/ImagePopup.jsx";
-
 import CurrentUserContext from "../contexts/CurrentUserContext.js";
 import api from "../utils/api.js";
+import Popup from "./Main/Components/Popup/Popup.jsx";
+import ConfirmDeletePopup from "./Main/Components/Popup/ConfirmDeletePopup/ConfirmDeletePopup.jsx";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
-  const [popup, setPopup] = useState(null);
-  const [selectedCard, setSelectedCard] = useState(null);
+  const [popup, setPopup] = useState({
+    isOpen: false,
+    type: "",
+    data: null,
+  });
   const [cardToDelete, setCardToDelete] = useState(null);
-  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
 
-  // 🔹 Carregar usuário e cards
+  // carregar usuário e cards
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
-
       .then(([user, initialCards]) => {
         setCurrentUser(user);
 
@@ -41,36 +37,42 @@ function App() {
       .catch(console.error);
   }, []);
 
-  // Função para lidar com ESC
-  function handleEscClose(evt) {
-    if (evt.key === "Escape") {
-      handleClosePopup();
+  useEffect(() => {
+    function handleEscClose(evt) {
+      if (evt.key === "Escape") {
+        onClosePopup();
+      }
     }
+
+    document.addEventListener("keydown", handleEscClose);
+    return () => document.removeEventListener("keydown", handleEscClose);
+  }, []);
+
+  // popups
+  function onOpenPopup(type, data = null) {
+    setPopup({
+      isOpen: true,
+      type,
+      data,
+    });
   }
 
-  // 🔹 Funções de popups
-  const handleOpenPopup = (popupKey) => setPopup(popupKey);
-  const handleClosePopup = () => {
-    setPopup(null);
-    setSelectedCard(null);
-    setCardToDelete(null);
-    setIsImagePopupOpen(false);
-  };
+  function onClosePopup() {
+    setPopup({
+      isOpen: false,
+      type: "",
+      data: null,
+    });
+  }
 
   const handleCardClick = (card) => {
-    setSelectedCard(card);
-    setIsImagePopupOpen(true);
+    onOpenPopup("imagePreview", card);
   };
 
-  // 🔹 Curtir / descurtir
   const handleCardLike = async (card) => {
-    // A lição mostra que devemos usar card.isLiked
     const isLiked = card.isLiked;
-
     try {
       const updatedCard = await api.changeLikeCardStatus(card._id, !isLiked);
-
-      // Atualizar o estado diretamente como na lição
       setCards((state) =>
         state.map((currentCard) =>
           currentCard._id === card._id ? updatedCard : currentCard
@@ -81,17 +83,21 @@ function App() {
     }
   };
 
-  // 🔹 Deletar card
+  // **confirmar antes de deletar**
   const handleAskDeleteCard = (card) => setCardToDelete(card);
-  const handleCardDelete = (cardId) => {
+
+  // deleta realmente (recebe o card inteiro)
+  const handleCardDelete = (card) => {
+    const cardId = card._id;
     api
       .deleteCard(cardId)
-      .then(() => setCards((state) => state.filter((c) => c._id !== cardId)))
+      .then(() => {
+        setCards((state) => state.filter((c) => c._id !== cardId));
+      })
       .catch(console.error)
       .finally(() => setCardToDelete(null));
   };
 
-  // 🔹 Adicionar card
   const handleAddCard = (data) => {
     api
       .addCard(data)
@@ -107,29 +113,27 @@ function App() {
               : newCard.owner,
         };
         setCards((prev) => [normalizedCard, ...prev]);
-        handleClosePopup();
+        onClosePopup();
       })
       .catch(console.error);
   };
 
-  // 🔹 Atualizar usuário
   const handleUpdateUser = (data) => {
     api
       .updateUserInfo(data)
       .then((updatedUser) => {
         setCurrentUser(updatedUser);
-        handleClosePopup();
+        onClosePopup();
       })
       .catch(console.error);
   };
 
-  // 🔹 Atualizar avatar
   const handleUpdateAvatar = (avatarData) => {
     api
       .updateUserAvatar(avatarData.avatar)
       .then((updatedUser) => {
         setCurrentUser(updatedUser);
-        handleClosePopup();
+        onClosePopup();
       })
       .catch(console.error);
   };
@@ -142,39 +146,22 @@ function App() {
         <Header />
         <Main
           cards={cards}
-          onOpenPopup={handleOpenPopup}
+          onOpenPopup={onOpenPopup}
+          onClosePopup={onClosePopup}
           onCardClick={handleCardClick}
           onCardLike={handleCardLike}
           onCardDelete={handleAskDeleteCard}
+          onAddCard={handleAddCard}
+          popup={popup}
         />
         <Footer />
 
-        {popup === "editProfile" && (
-          <Popup title="Editar perfil" onClose={handleClosePopup}>
-            <EditProfile onUpdateUser={handleUpdateUser} />
-          </Popup>
-        )}
-        {popup === "editAvatar" && (
-          <Popup title="Editar avatar" onClose={handleClosePopup}>
-            <EditAvatar onUpdateAvatar={handleUpdateAvatar} />
-          </Popup>
-        )}
-        {popup === "newCard" && (
-          <Popup title="Novo Card" onClose={handleClosePopup}>
-            <NewCard onAddCard={handleAddCard} />
-          </Popup>
-        )}
         {cardToDelete && (
-          <Popup onClose={handleClosePopup}>
-            <RemoveCard
-              card={cardToDelete}
-              onCardDelete={() => handleCardDelete(cardToDelete._id)}
-              onClose={handleClosePopup}
-            />
-          </Popup>
-        )}
-        {isImagePopupOpen && selectedCard && (
-          <ImagePopup card={selectedCard} onClose={handleClosePopup} />
+          <ConfirmDeletePopup
+            isOpen={!!cardToDelete}
+            onClose={() => setCardToDelete(null)}
+            onConfirm={() => handleCardDelete(cardToDelete)}
+          />
         )}
       </div>
     </CurrentUserContext.Provider>

@@ -1,7 +1,11 @@
 import { useContext } from "react";
 import Card from "./Components/Card/Card.jsx";
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
-import Popup from "./Components/Popup/Popup.jsx"
+import Popup from "./Components/Popup/Popup.jsx";
+import EditProfile from "./Components/Popup/EditProfile/EditProfile.jsx";
+import ImagePopup from "./Components/Popup/ImagePopup/ImagePopup.jsx";
+import EditAvatar from "./Components/Popup/EditAvatar/EditAvatar.jsx";
+import NewCard from "./Components/Popup/NewCard/NewCard.jsx";
 
 export default function Main({
   cards,
@@ -9,9 +13,11 @@ export default function Main({
   onCardClick,
   onCardLike,
   onCardDelete,
+  onAddCard,
+  popup,
+  onClosePopup,
 }) {
   const { currentUser } = useContext(CurrentUserContext);
-   const PopupComponent = Popup;
 
   return (
     <main className="content">
@@ -61,7 +67,21 @@ export default function Main({
           ))}
         </ul>
       </section>
-     
+
+      {popup.isOpen && (
+        <Popup isOpen={popup.isOpen} onClose={onClosePopup}>
+          {popup.type === "editProfile" && (
+            <EditProfile onClose={onClosePopup} />
+          )}
+          {popup.type === "editAvatar" && <EditAvatar onClose={onClosePopup} />}
+          {popup.type === "newCard" && (
+            <NewCard onClose={onClosePopup} onAddCard={onAddCard} />
+          )}
+          {popup.type === "imagePreview" && (
+            <ImagePopup card={popup.data} onClose={onClosePopup} />
+          )}
+        </Popup>
+      )}
     </main>
   );
 }
