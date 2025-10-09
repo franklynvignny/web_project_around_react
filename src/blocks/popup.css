@@ -30,17 +30,20 @@
 }
 
 .popup__title {
-  margin: 0;
+  max-width: 330px;
+  margin: 0 0 35px;
   font-size: 24px;
-  font-weight: 700;
   color: #000;
+  font-family: Inter;
+  font-weight: 900;
 }
 
 .popup__form {
   display: flex;
+  max-width: 350px;
   flex-direction: column;
   gap: 15px;
-  align-items: center;
+  align-items: start;
 }
 
 .popup__input {
@@ -49,7 +52,7 @@
   background: transparent;
   padding: 5px 0;
   font-size: 14px;
-  width: 370px;
+  width: 350px;
   line-height: 17px;
   color: #000;
   outline: none;
@@ -69,6 +72,7 @@
   cursor: pointer;
   transition: opacity 0.2s ease;
   margin-top: 27px;
+  width: 100%;
 }
 
 .popup__save:hover {
@@ -161,34 +165,40 @@
 }
 
 .popup__inner_type_confirm {
-  width: 300px;
-  height: 150px;
-  align-items: center;
+  width: 430px;
+  height: 180px;
+  align-items: start;
 }
 
 .popup__text {
   color: #000;
-  font-size: 16px;
-  margin: 0 0 20px 0;
-  text-align: center;
-  font-weight: 500;
+  margin: 0;
+  text-align: start;
+  font-family: Inter;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 100%;
 }
 
-.popup_buttons_confirm {
+.popup__button.popup__button_confirm {
   display: flex;
   justify-content: center;
-  gap: 15px;
+  margin-top: 38px;
+  width: 358px;
+  padding: 12px;
+  background-color: #000;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+
 }
 
-.popup_button_confirm {
-  color: white;
-  border: none;
-  padding: 10px 24px;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
+  
+
+
 
 /* Responsivo */
 @media (max-width: 544px) {
@@ -196,12 +206,14 @@
     width: 282px;
     padding: 22px;
   }
+
   .popup__close-btn {
     width: 26px;
     height: 26px;
     top: -30px;
     right: -30px;
   }
+
   .popup__save {
     width: 100%;
   }

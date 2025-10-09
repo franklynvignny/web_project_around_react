@@ -11,7 +11,6 @@ export default function RemoveCard({ card, onCardDelete, onClose }) {
 
   return (
     <form className="popup__form" onSubmit={handleSubmit}>
-      <h3 className="popup__title">Tem certeza?</h3>
 
       <div className="popup__actions">
         <button className="button popup__button" type="submit">

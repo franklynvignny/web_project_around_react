@@ -20,6 +20,7 @@ export default function EditAvatar({ onUpdateAvatar }) {
       noValidate
       onSubmit={handleSubmit}
     >
+       <h3 className="popup__title">Alterar a foto do perfil </h3>
       <input
         type="url"
         name="avatar"

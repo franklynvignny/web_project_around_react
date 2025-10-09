@@ -31,7 +31,6 @@
   border-top-right-radius: 10px;
 }
 
-
 .card__delete-button {
   position: absolute;
   top: 18px;
@@ -53,7 +52,7 @@
 
 .card__info {
   display: flex;
-  justify-content:space-around;
+  justify-content: space-around;
   align-items: center;
   height: 79px;
   background-color: #fff;
@@ -82,7 +81,6 @@
   background: transparent;
 }
 
-
 .card__like-button img {
   width: 21px;
   height: 19px;
@@ -99,16 +97,32 @@
 }
 
 /* Responsivo */
+
 @media (max-width: 1024px) {
-  .elements {
+  .cards__list {
     grid-template-columns: repeat(2, 282px);
-    gap: 15px;
+    gap: 20px;
+    justify-content: center;
+    justify-items: center;
+    max-width: 600px;
+    margin: 40px auto;
   }
 }
 
 @media (max-width: 544px) {
-  .elements {
+  .cards__list {
     grid-template-columns: 1fr;
-    gap: 15px;
+    justify-items: center;
+    gap: 18px;
+    width: 100%;
+    max-width: 320px;
+    margin: 30px auto;
+    padding: 0 10px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
   }
 }

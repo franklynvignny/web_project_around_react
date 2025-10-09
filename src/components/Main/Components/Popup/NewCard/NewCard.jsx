@@ -18,6 +18,7 @@ export default function NewCard({ onAddCard }) {
       noValidate
       onSubmit={handleSubmit}
     >
+       <h3 className="popup__title">Novo Local</h3>
       <input
         type="text"
         name="name"
@@ -45,7 +46,7 @@ export default function NewCard({ onAddCard }) {
       <span className="error-msg" id="inputLink-error"></span>
 
       <button type="submit" className="popup__save">
-        Criar
+        Crie
       </button>
     </form>
   );

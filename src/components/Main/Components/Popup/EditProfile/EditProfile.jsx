@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import CurrentUserContext from "../../../../../contexts/CurrentUserContext";
 
-export default function EditProfile({ onUpdateUser }) {
+export default function EditProfile() {
   const { currentUser } = useContext(CurrentUserContext);
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
 
-  // Preenche os campos com os dados do usuário quando ele muda
+  
   useEffect(() => {
     setName(currentUser?.name || "");
     setAbout(currentUser?.about || "");
@@ -24,6 +24,7 @@ export default function EditProfile({ onUpdateUser }) {
       noValidate
       onSubmit={handleSubmit}
     >
+       <h3 className="popup__title">Editar Perfil</h3>
       <input
         type="text"
         name="name"
@@ -53,7 +54,7 @@ export default function EditProfile({ onUpdateUser }) {
       <span className="error-msg" id="inputAbout-error"></span>
 
       <button type="submit" className="popup__save">
-        Salvar
+        Salvar...
       </button>
     </form>
   );
